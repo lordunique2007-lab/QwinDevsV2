@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-qwin-bg text-qwin-text antialiased;
+  }
+
+  ::selection {
+    @apply bg-qwin-primary/40;
+  }
+
+  /* Respect the OS-level "reduce motion" accessibility preference — every
+     animation and transition in the app (verified badge glow, page
+     transitions, hover states) collapses to instant when this is set. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Visible keyboard focus ring everywhere — never rely on color alone. */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid theme("colors.qwin.primary2");
+    outline-offset: 2px;
+  }
+
+  [dir="rtl"] .flip-rtl {
+    transform: scaleX(-1);
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-qwin-surface border border-qwin-border rounded-2xl;
+  }
+
+  .btn-primary {
+    @apply bg-qwin-primary hover:bg-qwin-primary2 text-white font-medium rounded-xl px-4 py-2.5 transition-colors shadow-glow disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply bg-qwin-surface2 hover:bg-qwin-border text-qwin-text font-medium rounded-xl px-4 py-2.5 transition-colors border border-qwin-border;
+  }
+
+  .input {
+    @apply bg-qwin-surface2 border border-qwin-border rounded-xl px-4 py-2.5 text-qwin-text placeholder:text-qwin-muted focus:outline-none focus:ring-2 focus:ring-qwin-primary/60 w-full;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium;
+  }
+
+  .search-row {
+    @apply flex items-center gap-1 rounded-lg px-2 py-1.5 text-sm hover:bg-qwin-surface2;
+  }
+}
